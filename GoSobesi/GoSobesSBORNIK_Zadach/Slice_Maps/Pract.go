@@ -8,21 +8,47 @@ import (
 //TODO ДОБАВЬ ШТУКУ С ОШИБКОЙ
 
 // Слияние слайсов - ПОМЕНЯТЬ И ПОВТОРИТЬ!!
-func merge(nums1 []int, m int, nums2 []int, n int) {
+func merge(nums1 []int, nums2 []int) {
+	// if len(nums1) > len(nums2) {
+	// 	counter := 0
+	// 	for i := len(nums1); i < len(nums2); i++ {
+	// 		nums1[i] = nums2[counter]
+	// 		counter++
+	// 	}
+	// }
+
 	//m,n - количество значений в слайсе
-	for i := m; i < len(nums1); i++ {
-		nums1[i] = nums2[i-m]
-	}
+	// for i := m; i < len(nums1); i++ {
+	// 	nums1[i] = nums2[i-m]
+	// }
 
 	for i := 0; i < len(nums1)-1; i++ {
 		for j := 0; j < len(nums1)-i-1; j++ {
 			if nums1[j] > nums1[j+1] {
 				nums1[j], nums1[j+1] = nums1[j+1], nums1[j]
+				//or
+				// temp := nums1[j]
+				// nums1[j] = nums1[j+1]
+				// nums1[j+1] = temp
 			}
 		}
 	}
 
-	fmt.Println(nums1)
+	// create 2 slice we want to merge
+	// intSlice1 := [5]int{2, 4, 6, 8, 10}
+	// intSlice2 := [4]int{3, 5, 7, 9}
+
+	// 	// create a destination slice
+	// var mergeSlice [len(intSlice1) + len(intSlice2)]int
+
+	// 	// copy all elements from slice 1 to destination slice
+	// copy(mergeSlice[:], intSlice1[:])
+
+	// 	// copy all elements from slice 2 to destination slice
+	// copy(mergeSlice[len(intSlice1):], intSlice2[:])
+	// fmt.Printf("%v\n", mergeSlice)
+
+	// fmt.Println(nums1)
 }
 
 // Изоморфные строки - ПОВТОРИТЬ!!
@@ -143,6 +169,7 @@ func isPalindrome(word string) bool {
 			return false
 		}
 	}
+
 	return true
 }
 

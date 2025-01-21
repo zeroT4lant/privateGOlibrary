@@ -33,7 +33,10 @@ func main() {
 
 	//длина - len будет 2 элемента в этом случае
 	//!!!!А cap оставшаяся необрезанная длина слайса, от первого указанного элемента - до конца исходного слайса, то есть 7!!!!
+	//Пятый индекс не включаем
 	testArr := testSlice[2:5]
+	fmt.Println("testArr = ", testArr)
+	//вместо вставки обновляет пятый индекс
 	testArr = append(testArr, 523)
 	//cap testArr с выделенными значениями и оставшимся местом ((3,4,5),_,_,_,_)
 	fmt.Println(len(testArr), cap(testArr), testArr)
@@ -54,12 +57,11 @@ func main() {
 	//Вариативные аргументы, троеточие перечисляет все входящие элементы
 	slice1 := []int{1, 2, 3, 4, 5}
 	slice2 := []int{6, 7, 8, 9, 10}
-	slice1 = append(slice1, slice2...)
-	fmt.Println(slice1)
+	fmt.Println(append(slice1, slice2...))
 
-	//удаление из массива числа 5
-	slice1 = append(slice1[:4], slice1[5:]...)
-	fmt.Println(slice1)
+	//удаление из массива числа 5, крайний индекс справа не учитывается
+	slice1 = slice1[:len(slice1)-1]
+	fmt.Println(slice1, len(slice1), cap(slice1))
 
 	people := []Person{
 		{"Alice", 25},
@@ -70,6 +72,7 @@ func main() {
 	sort.Slice(people, func(i, j int) bool {
 		return people[i].Age < people[j].Age
 	})
+
 	fmt.Println("After sorting:", people)
 
 	//уникальные значения из мапы
@@ -88,18 +91,22 @@ func main() {
 	//При передачи карты функции или методу содержимое карты может измениться.
 	//Такое поведение напоминает несколько срезов, что указывают на один и тот же базовый массив.
 	sliceForMap := []int{1, 5, 3, 2, 2, 5, 223, 4, 6, 7, 7}
-	mapNums := make(map[int]bool, 5)
+	mapNums := make(map[int]struct{}, 5)
 	for _, el := range sliceForMap {
 		//елемент слайса - el, будет как ключ у мапы
 		//если не нашлось записи с таким ключом, то записываем
 		//делаем из значения слайса - ключ, и записываем в него значение true
 		if _, ok := mapNums[el]; !ok {
-			mapNums[el] = true
+			mapNums[el] = struct{}{}
 		}
+
+		//или вместо этого просто делаем так
+		//mapNums[el] = struct{}{}
 	}
 
 	fmt.Println(mapNums)
-	mapNums[1] = false
+	//можно было бы поменять значение
+	//mapNums[1] = false
 	fmt.Println(mapNums)
 
 	//подсчёт дубликатов значений
@@ -108,11 +115,15 @@ func main() {
 	for _, v := range sliceForMapString {
 		if _, ok := mapStrings[v]; !ok {
 			mapStrings[v] = 1
+		} else {
+			mapStrings[v]++
 		}
-		mapStrings[v]++
+
+		//или
+		//mapStrings[v]++
 	}
 
-	fmt.Println(mapStrings)
+	fmt.Println("mapStrings: ", mapStrings)
 
 	//поиск самого популярного слова в слайсе
 	sussyBaka := []string{"aa", "b", "bb", "bb", "a", "c"}

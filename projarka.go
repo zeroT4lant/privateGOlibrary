@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"runtime"
+)
+
 func main() {
-	//pipec
+
+	fmt.Println(runtime.NumCPU())
 }

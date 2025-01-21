@@ -23,7 +23,7 @@ func main() {
 	one := make([]int, 0, 3)
 	one = append(one, 2, 3)
 	two := one
-	fmt.Println("cap", cap(one), len(one))
+	fmt.Println("cap", cap(one), "len", len(one))
 
 	two[0] = 123
 	fmt.Println(one, two)
@@ -50,9 +50,9 @@ func main() {
 
 	fmt.Println("-----------------------------------")
 	test1 := []int{1, 2, 3, 4, 5}
-	test1 = test1[:3]
+	test1 = test1[:3] // {1 2 3} 4 5
 	fmt.Println(test1)
-	test2 := test1[3:]
+	test2 := test1[3:] // 1 2 3 {} 4 5
 	fmt.Println(test2)
-	fmt.Println(test2[:2])
+	fmt.Println(test2[:2]) // 1 2 3 {4 5}
 }

@@ -12,8 +12,9 @@ func main() {
 	//withoutWait()
 
 	//подсчитает всё, подождёт остальных и завершит выполнение
-	withWait()
+	//withWait()
 	//readWithMutex()
+	writeWithMutex()
 }
 
 func withoutWait() {
@@ -121,6 +122,7 @@ func writeWithoutMutex() {
 
 	wg.Wait()
 	fmt.Println(time.Now().Sub(start).Seconds())
+	fmt.Println(counter)
 	fmt.Println("exit")
 }
 
@@ -129,24 +131,22 @@ func writeWithMutex() {
 	//Mutex и RWMutex - механизм получения исключительной блокировки
 	start := time.Now()
 	counter := 0
-	wg := sync.WaitGroup{}
-	mu := sync.Mutex{}
 
-	wg.Add(1000)
+	wg := &sync.WaitGroup{}
+	mu := &sync.Mutex{}
+
 	for i := 0; i < 1000; i++ {
+		wg.Add(1)
 		go func() {
-			defer wg.Done()
-			time.Sleep(time.Nanosecond)
-
-			//действие закрепляется за одной горутиной
-			//берёт ответственность за выполнение на себя, так что остальные не пытаются записать туда что-то
 			mu.Lock()
 			counter++
 			mu.Unlock()
+			defer wg.Done()
 		}()
 	}
 
 	wg.Wait()
+
 	fmt.Println(counter)
 	fmt.Println(time.Now().Sub(start).Seconds())
 }
@@ -199,7 +199,7 @@ func readWithRWMutex() {
 			defer wg.Done()
 
 			//сокращает время на чтение
-			//любая горутина может читать счётчик
+			//любая горутина может читать счётчик, операция чтения не блокируется
 			mu.RLock()
 
 			time.Sleep(time.Nanosecond)

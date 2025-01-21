@@ -18,11 +18,12 @@ func main() {
 
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
-		go func(i int) {
-			fmt.Println(i)
+		go func(k int) {
 			defer wg.Done()
+			fmt.Println(k)
 		}(i)
 	}
+
 	wg.Wait()
 
 	//2 Задача

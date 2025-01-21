@@ -76,7 +76,7 @@ func main() {
 	//При конкурентной записи будет происходить Data Race
 	//Во избежание этого используем пакет syncMap или реализацию с RWMutex
 	var wg sync.WaitGroup
-	var mu sync.RWMutex
+	var mu sync.Mutex
 
 	m := make(map[int]int)
 	for i := 0; i < 10; i++ {
@@ -90,17 +90,21 @@ func main() {
 	}
 	wg.Wait()
 	fmt.Println(m)
+
 	//Адрес нельзя взять у Мапы, потому что данные могу эвакуироваться
 
 	//ПОДСЧЁТ УНИКАЛЬНЫХ ЗНАЧЕНИЙ
 	sliceForMapString := []string{"a", "b", "a", "c", "d", "d", "a"}
 	mapStrings := make(map[string]int, 5)
 	for _, v := range sliceForMapString {
-		if _, ok := mapStrings[v]; !ok {
-			mapStrings[v] = 1
-		} else {
-			mapStrings[v]++
-		}
+		//Для каждого найденного ключа добавляем +1 найденную строку
+		mapStrings[v]++
+		//или
+		// if _, ok := mapStrings[v]; !ok {
+		// 	mapStrings[v] = 1
+		// } else {
+		// 	mapStrings[v]++
+		// }
 	}
 
 	fmt.Println(mapStrings)

@@ -89,3 +89,31 @@ func gracefulShutdown() {
 		return
 	}
 }
+
+// package main
+
+// import (
+// 	"fmt"
+// )
+
+// func main() {
+// 	ch1 := make(chan string)
+// 	ch2 := make(chan string)
+
+// 	go func() {
+// 		ch1 <- "one"
+// 	}()
+
+// 	go func() {
+// 		ch2 <- "two"
+// 	}()
+
+// 	for i := 0; i < 2; i++ {
+// 		select {
+// 		case one := <-ch1:
+// 			fmt.Println(one)
+// 		case two := <-ch2:
+// 			fmt.Println(two)
+// 		}
+// 	}
+// }

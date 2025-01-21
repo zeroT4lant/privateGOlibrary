@@ -1,11 +1,11 @@
 package main
 
-type Stack struct {
-	data []int
-}
-
 func main() {
 
+}
+
+type Stack struct {
+	data []int
 }
 
 func (s *Stack) Push(el int) {
@@ -13,15 +13,17 @@ func (s *Stack) Push(el int) {
 }
 
 func (s *Stack) Pop() int {
-	if s.isEmpty() {
+	if s.IsEmpty() {
 		return -1
 	}
-	//последний элемент слайса
+
+	//Последний элемент
 	item := s.data[len(s.data)-1]
 	s.data = s.data[:len(s.data)-1]
+
 	return item
 }
 
-func (s Stack) isEmpty() bool {
+func (s *Stack) IsEmpty() bool {
 	return len(s.data) == 0
 }

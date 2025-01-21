@@ -10,23 +10,25 @@ import (
 
 func main() {
 	//!!!1 Задача!!!
-	//v := "Hello 📌"
-	//for i, c := range v {
-	//	fmt.Printf("%d of '%s'\n", i, c)
-	//}
-	//
-	//emoji := []rune("cool📌")
-	//for _, ch := range emoji {
-	//	fmt.Printf("%d of '%s'\n", ch, string(ch))
-	//}
+	// v := "Hello 📌"
+	// //индекс - i и руны - c(могут быть переведены в string при помощи string(c) )
+	// for i, c := range v {
+	// 	fmt.Printf("%d of '%s'\n", i, c)
+	// }
+
+	// //
+	// emoji := []rune("cool📌")
+	// for _, ch := range emoji {
+	// 	fmt.Printf("%d of '%s'\n", ch, string(ch))
+	// }
 
 	//!!!2 Задача - APPEND копирует значение из первого аргумента и вставляет его!!!
 	//arr1 = append(arr2, 9) - переназначаем значения из arr1, в arr2 и добавляем 9.
 
-	//arr1 := []int{1, 2, 3, 4}
-	//arr2 := []int{5, 6, 7, 8}
-	//arr1 = append(arr2, 9)
-	//fmt.Println("ABOBA: ", arr1)
+	// arr1 := []int{1, 2, 3, 4}
+	// arr2 := []int{5, 6, 7, 8}
+	// arr1 = append(arr2, 9)
+	// fmt.Println("ABOBA: ", arr1)
 
 	//s1 := make([]account, 0, 2)
 	//s1 = append(s1, account{})  //{acc1}
@@ -113,8 +115,6 @@ func main() {
 //	}
 //}
 
-// 5 TASK ------------
-
 // 6 TASK ------------
 //type X struct {
 //	V int
@@ -183,20 +183,15 @@ func sevenTask() {
 // 7 TASK ------------
 
 // 8 TASK ------------
-
-func mergeChan(cs ...<-chan int) <-chan int {
+func mergeChans(chs ...<-chan int) <-chan int {
+	wg := &sync.WaitGroup{}
 	resChan := make(chan int, 1)
 
-	wg := &sync.WaitGroup{}
-
-	wg.Add(len(cs))
-
-	//Итерация по каналам
-	for _, ch := range cs {
-		//Итерация по элементам канала
-		//Принимает канал, который отдаёт значения
+	for _, ch := range chs {
+		wg.Add(1)
 		go func(ch <-chan int) {
 			defer wg.Done()
+
 			for v := range ch {
 				resChan <- v
 			}
@@ -210,6 +205,31 @@ func mergeChan(cs ...<-chan int) <-chan int {
 
 	return resChan
 }
+
+// func mergeChan(cs ...<-chan int) <-chan int {
+// 	resChan := make(chan int, 1)
+
+// 	wg := &sync.WaitGroup{}
+
+// 	wg.Add(len(cs))
+
+// 	for _, someChan := range cs {
+// 		go func(ch <-chan int) {
+// 			defer wg.Done()
+
+// 			for val := range someChan {
+// 				resChan <- val
+// 			}
+// 		}(someChan)
+// 	}
+
+// 	go func() {
+// 		wg.Wait()
+// 		close(resChan)
+// 	}()
+
+// 	return resChan
+// }
 
 // 8 TASK ------------
 

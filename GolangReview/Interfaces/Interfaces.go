@@ -35,8 +35,8 @@ func main() {
 
 	any = "foobar"
 
-	if s, ok := any.(string); ok {
-		println("this is a string:", s)
+	if _, ok := any.(string); ok {
+		fmt.Println("this is string")
 	}
 
 	var chislo interface{}
@@ -69,10 +69,9 @@ func main() {
 func Type_Switch(i interface{}) {
 	switch v := i.(type) {
 	case int:
-		fmt.Printf("Twice %v is %v\n", v, v*2)
+		fmt.Println(v, " is int")
 	case string:
-		fmt.Printf("%q is %v bytes long\n", v, len(v))
-	default:
-		fmt.Printf("I don't know about type %T!\n", v)
+		fmt.Println(v, " is string")
 	}
+
 }

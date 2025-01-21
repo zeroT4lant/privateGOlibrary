@@ -1,32 +1,22 @@
-package Errorsi
+package main
 
-
-interface error{
-	Error() string
-}
+import "fmt"
 
 type NewError struct {
-	text string
+	msg string
 }
 
 func (e *NewError) Error() string {
-	return e.text
+	return e.msg
 }
 
-func main()  {
-	foo()
+func (e *NewError) handleError() error {
+	return &NewError{
+		e.Error(),
+	}
 }
 
-// Ошибка
-func foo() {
-	println(handle())
-
-
-	//errors.New()
-}
-
-
-
-func handle() error {
-	return &NewError{text: "ошибка"}
+func main() {
+	newErr := &NewError{msg: "nigger error"}
+	fmt.Println(newErr.handleError())
 }

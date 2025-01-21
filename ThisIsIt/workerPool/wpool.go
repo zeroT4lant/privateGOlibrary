@@ -11,18 +11,18 @@ func main() {
 	jobs := make(chan int, 100)
 	results := make(chan int, 100)
 
-	//Стартуем 3 воркера, первоначально заблокированных, т.к. еще нет заданий.
-	for w := 1; w <= 3; w++ {
-		go worker(w, jobs, results)
-
-	}
-
 	//посылаем 5 заданий и закрываем канал
 	for j := 1; j <= 5; j++ {
 		jobs <- j
 
 	}
 	defer close(jobs)
+
+	//Стартуем 3 воркера
+	for w := 1; w <= 3; w++ {
+		go worker(w, jobs, results)
+
+	}
 
 	//числа над которыми было произведено действие выводятся
 	for i := 1; i <= 5; i++ {

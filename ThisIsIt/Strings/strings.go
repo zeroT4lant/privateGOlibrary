@@ -12,13 +12,14 @@ func main() {
 	fmt.Println(strings.Contains(str, "Almaz"))
 
 	//разделяет по определённому символу
+	//Разделение по каждому символу
 	sliceOfStr := strings.Split(str, "")
 	fmt.Println(sliceOfStr)
 
 	//склеивает строки из слайса в одну строку, с разделителем во втором аргументе
-	fmt.Println(strings.Join([]string{"hello", "bot"}, "-"))
+	fmt.Println(strings.Join([]string{"giga", "nigga"}, "-"))
 
-	//stringBuilder
+	//stringBuilder, создаём объект структуры
 	sb := strings.Builder{}
 
 	sb.WriteString("yo")

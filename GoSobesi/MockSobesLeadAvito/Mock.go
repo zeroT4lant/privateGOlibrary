@@ -45,6 +45,7 @@ func handle() error {
 	return &myError{text: "Ошибка"}
 }
 
+// Теперь тоже реализует интерфейс "error"
 type myError struct {
 	text string
 }
@@ -54,11 +55,6 @@ type myError struct {
 func (m *myError) Error() string {
 	return m.text
 }
-
-// Сам интерфейс ошибки выглядит так
-//type Error interface {
-//	Error() string
-//}
 
 //Интерфейс ошибки
 //type error interface {

@@ -12,6 +12,10 @@ type bird interface {
 	flyer
 }
 
+type flyer interface {
+	fly()
+}
+
 type walker interface {
 	walk()
 }
@@ -20,33 +24,38 @@ type runner interface {
 	run()
 }
 
-type flyer interface {
-	fly()
+type Eagle struct {
+}
+
+func (e Eagle) fly() {
+	fmt.Println("eagle fly")
+}
+
+func (e Eagle) walk() {
+	fmt.Println("eagle walk")
 }
 
 type Cat struct {
 }
 
-func (c Cat) walk() {
-	fmt.Println("cat is walking")
-}
-
 func (c Cat) run() {
-	fmt.Println("cat is running")
+	fmt.Println("cat run")
 }
 
-type Eagle struct {
-}
-
-func (e Eagle) walk() {
-	fmt.Println("eagle is walking")
-}
-
-func (e Eagle) fly() {
-	fmt.Println("eagle is flying")
+func (c Cat) walk() {
+	fmt.Println("cat walk")
 }
 
 func main() {
+
+	// var c animal = &Cat{}
+	// var e bird = &Eagle{}
+
+	// c.walk()
+	// c.run()
+
+	// e.walk()
+	// e.fly()
 
 	var c animal = &Cat{}
 	var e bird = &Eagle{}
@@ -54,8 +63,8 @@ func main() {
 	c.walk()
 	c.run()
 
-	e.walk()
 	e.fly()
+	e.walk()
 
 	//СТРУКТУРЫ
 	//самый базовый синтаксис объявления структур
@@ -116,3 +125,67 @@ func (e *employee) setName2(name string) {
 func (e employee) getInfo() string {
 	return fmt.Sprintf("Сотрудник %s\nВозраст: %d\nЗарплата%d\n", e.name, e.age, e.salary)
 }
+
+//------
+
+// type animal interface {
+// 	walker
+// 	runner
+// }
+
+// type bird interface {
+// 	walker
+// 	flyer
+// }
+
+// type walker interface {
+// 	walk()
+// }
+
+// type runner interface {
+// 	run()
+// }
+
+// type flyer interface {
+// 	fly()
+// }
+
+// type Cat struct {
+// }
+
+// func (c Cat) walk() {
+// 	fmt.Println("cat is walking")
+// }
+
+// func (c Cat) run() {
+// 	fmt.Println("cat is running")
+// }
+
+// type Eagle struct {
+// }
+
+// func (e Eagle) walk() {
+// 	fmt.Println("eagle is walking")
+// }
+
+// func (e Eagle) fly() {
+// 	fmt.Println("eagle is flying")
+// }
+
+// ```
+// type iface struct {
+// tab  *itab
+// data unsafe.Pointer
+// }
+// ```
+
+// `data` - это непосредственно наш f1 из примера. Вся информация по методам, типам и прочему скрывается в `tab` - интерфейсной таблицей (interface table).
+
+// ```
+// type itab struct {
+// inter *interfacetype
+// _type *_type
+// hash  uint32 // copy of _type.hash. Used for type switches.
+// _     [4]byte
+// fun   [1]uintptr // variable sized. fun[0]==0 means _type does not implement inter.
+// }

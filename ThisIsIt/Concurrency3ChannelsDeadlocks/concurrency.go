@@ -17,7 +17,7 @@ func main() {
 func nilChannel() {
 	//получаем интовые значение в канал
 	//в ниловый канал нельзя ни записать ни прочитать значения
-	//вызывается дедлок
+	//вызывается дедлок и блокировка
 	var nilChannel chan int
 	fmt.Println(nilChannel)
 
@@ -27,6 +27,7 @@ func nilChannel() {
 	//чтение из канала
 	//value := <-nilChannel
 
+	//Паника
 	//close(nilChannel)
 }
 
